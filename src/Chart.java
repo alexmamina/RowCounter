@@ -2,13 +2,13 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Chart {
-    public JPanel chart;
+    public JComponent[] chart;
     public String name;
     public JCheckBox checkremove;
-    public static ArrayList<JPanel> charts = new ArrayList<>();
+    public static ArrayList<JComponent[]> charts = new ArrayList<>();
 
     public Chart(String name) {
-        chart = new JPanel();
+        chart = new JComponent[5];
         JLabel num = new JLabel("1");
         JButton inc = new JButton("+");
         inc.addActionListener(e -> {
@@ -26,11 +26,11 @@ public class Chart {
 
         checkremove = new JCheckBox();
         checkremove.setVisible(false);
-        if (!text.getText().equals("General counter")) chart.add(checkremove);
-        chart.add(text);
-        chart.add(num);
-        chart.add(inc);
-        chart.add(dec);
+         chart[0] = checkremove;
+        chart[1] = text;
+        chart[2] = num;
+        chart[3] = inc;
+        chart[4] = dec;
 
 
         charts.add(chart);
