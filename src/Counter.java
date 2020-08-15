@@ -1,17 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class Counter extends JFrame {
 
     //TODO colours
     //TODO link counters
 
-    public int counter = 1;
+    private int counter = 1;
 
-    public Counter() {
+    private Counter() {
         setTitle("Row Counter");
         setSize(600, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -11,13 +11,9 @@ public class Chart {
         chart = new JComponent[5];
         JLabel num = new JLabel("1");
         JButton inc = new JButton("+");
-        inc.addActionListener(e -> {
-            num.setText(String.valueOf(Integer.parseInt(num.getText()) + 1));
-        });
+        inc.addActionListener(e -> num.setText(String.valueOf(Integer.parseInt(num.getText()) + 1)));
         JButton dec = new JButton("-");
-        dec.addActionListener(e -> {
-            num.setText(String.valueOf(Integer.parseInt(num.getText()) - 1));
-        });
+        dec.addActionListener(e -> num.setText(String.valueOf(Integer.parseInt(num.getText()) - 1)));
         JLabel text;
         text = new JLabel(name);
 
