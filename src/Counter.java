@@ -4,18 +4,18 @@ import java.awt.*;
 public class Counter extends JFrame {
 
     //TODO colours
-    //TODO link counters
+
 
     private int counter = 1;
 
     private Counter() {
         setTitle("Row Counter");
-        setSize(600, 500);
+        setSize(630, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        setLayout(new GridLayout(10,5));
+        setLayout(new GridLayout(10,6));
         addMenu();
         Chart gen = new Chart("General counter");
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
             this.add(gen.chart[i]);
         }
         addInvisibleCharts(10-counter);
@@ -25,7 +25,7 @@ public class Counter extends JFrame {
     private void addInvisibleCharts(int n) {
         for (int i = 0; i < n; i++) {
             Chart x = new Chart("invisible "+i);
-            for (int j = 0; j < 5; j++) {
+            for (int j = 0; j < 6; j++) {
                 add(x.chart[j]);
                 x.chart[j].setVisible(false);
             }
@@ -35,7 +35,7 @@ public class Counter extends JFrame {
         for (JComponent[] c : Chart.charts.subList(1, Chart.charts.size())) {
             ((JCheckBox) c[0]).addActionListener(l -> {
                 if (((JCheckBox) c[0]).isSelected()) {
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 6; i++) {
                         remove(c[i]);
                     }
                     Chart.charts.remove(c);
@@ -55,7 +55,7 @@ public class Counter extends JFrame {
         JButton remove = new JButton("Delete chart");
 
         newchart.addActionListener(e -> {
-            for (int i = 1; i < 5; i++) {
+            for (int i = 1; i < 6; i++) {
                 if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(JOptionPane.showInputDialog(
                         "Enter chart name:"));
                 Chart.charts.get(counter)[i].setVisible(true);
