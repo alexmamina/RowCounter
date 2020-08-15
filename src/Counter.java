@@ -2,19 +2,53 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class Counter extends JFrame {
 
-    //TODO gridlayout, each column is box,text,num, +,-
+    //TODO colours
+    //TODO link counters
+
+    public int counter = 1;
 
     public Counter() {
         setTitle("Row Counter");
-        setSize(500, 500);
+        setSize(600, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new GridLayout(10,5));
         addMenu();
+        Chart gen = new Chart("General counter");
         for (int i = 0; i < 5; i++) {
-            this.add((new Chart("General counter").chart)[i]);
+            this.add(gen.chart[i]);
+        }
+        addInvisibleCharts(10-counter);
+        setCheckBoxes();
+    }
+
+    private void addInvisibleCharts(int n) {
+        for (int i = 0; i < n; i++) {
+            Chart x = new Chart("invisible "+i);
+            for (int j = 0; j < 5; j++) {
+                add(x.chart[j]);
+                x.chart[j].setVisible(false);
+            }
+        }
+    }
+    private void setCheckBoxes() {
+        for (JComponent[] c : Chart.charts.subList(1, Chart.charts.size())) {
+            ((JCheckBox) c[0]).addActionListener(l -> {
+                if (((JCheckBox) c[0]).isSelected()) {
+                    for (int i = 0; i < 5; i++) {
+                        remove(c[i]);
+                    }
+                    Chart.charts.remove(c);
+                    counter--;
+                    revalidate();
+                    repaint();
+                    addInvisibleCharts(1);
+                }
+
+            });
         }
     }
 
@@ -24,30 +58,21 @@ public class Counter extends JFrame {
         JButton remove = new JButton("Delete chart");
 
         newchart.addActionListener(e -> {
-            Chart x = new Chart("");
-            x.checkremove.addActionListener(l -> {
-                if (x.checkremove.isSelected()) {
-                    for (int i = 0; i < 5; i++) {
-                        remove(x.chart[i]);
-                    }
-                    revalidate();
-                    repaint();
-                }
-            });
-
-            for (int i = 0; i < 5; i++) {
-                add(x.chart[i]);
+            for (int i = 1; i < 5; i++) {
+                if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(JOptionPane.showInputDialog(
+                        "Enter chart name:"));
+                Chart.charts.get(counter)[i].setVisible(true);
             }
+            counter++;
             revalidate();
             repaint();
         });
 
         remove.addActionListener(e -> {
             if (remove.getText().equals("Delete chart")) {
-
                 for (JComponent[] c : Chart.charts.subList(1, Chart.charts.size())) {
-                    (c[0]).setVisible(true);
-                    remove.setText("Done");
+                   if (c[1].isVisible()) (c[0]).setVisible(true);
+                   remove.setText("Done");
                 }
             } else {
                 for (JComponent[] c : Chart.charts.subList(1, Chart.charts.size())) {

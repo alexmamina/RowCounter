@@ -19,14 +19,12 @@ public class Chart {
             num.setText(String.valueOf(Integer.parseInt(num.getText()) - 1));
         });
         JLabel text;
-        if (name.equals("")) {
-            text = new JLabel(JOptionPane.showInputDialog("Enter chart name:"));
-        } else
-            text = new JLabel(name);
+        text = new JLabel(name);
 
         checkremove = new JCheckBox();
+        checkremove.setSelected(false);
         checkremove.setVisible(false);
-         chart[0] = checkremove;
+        chart[0] = checkremove;
         chart[1] = text;
         chart[2] = num;
         chart[3] = inc;
