@@ -1,8 +1,9 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 public class Chart {
@@ -34,6 +35,26 @@ public class Chart {
         if (name.equals("General counter")) {
             inc.addActionListener(megaincrease);
             dec.addActionListener(megadecrease);
+            dec.addKeyListener(new KeyListener() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+
+                }
+
+                @Override
+                public void keyPressed(KeyEvent e) {
+                    if (dec.isFocusOwner() && (e.getKeyCode() == KeyEvent.VK_R)) {
+                        for (JComponent[] c : charts.subList(0, charts.size())) {
+                            if (c[1].isVisible()) ((JLabel) c[2]).setText(((JLabel) c[6]).getText());
+                        }
+                    }
+                }
+
+                @Override
+                public void keyReleased(KeyEvent e) {
+
+                }
+            });
             link.setVisible(false);
             link.setEnabled(false);
             links.add(chart);

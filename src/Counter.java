@@ -4,7 +4,7 @@ import java.awt.*;
 public class Counter extends JFrame {
 
     //TODO number of repeats
-    //TODO add reset counter
+
 
 
     private int counter = 1;
@@ -22,6 +22,8 @@ public class Counter extends JFrame {
         }
         addInvisibleCharts(10-counter);
         setCheckBoxes();
+        JOptionPane.showMessageDialog(null,"Welcome! This counter accepts up to 9 different chart" +
+                " counters. To reset counters, press \"-\" next to General Counter, then press R");
     }
 
     private void addInvisibleCharts(int n) {
@@ -55,12 +57,17 @@ public class Counter extends JFrame {
         JMenuBar menu = new JMenuBar();
         JButton newchart = new JButton("Add");
         JButton remove = new JButton("Delete chart");
-
+        JButton reset = new JButton("Reset counters");
+        reset.addActionListener(e-> {
+            for (JComponent[] c : Chart.charts.subList(0, Chart.charts.size())) {
+                if (c[1].isVisible()) ((JLabel) c[2]).setText(((JLabel) c[6]).getText());
+            }
+        });
         newchart.addActionListener(e -> {
             String name = JOptionPane.showInputDialog(
                     "Enter chart name:");
             String resetafter = JOptionPane.showInputDialog("Reset loop after row " +
-                    "number: (if not reset, enter 10000");
+                    "number: (if not reset, enter any number >1000)");
             String startfrom = JOptionPane.showInputDialog("Start from row");
             if (name != null && !name.equals("")) {
                 for (int i = 1; i < 6; i++) {
@@ -91,6 +98,7 @@ public class Counter extends JFrame {
         });
         menu.add(newchart);
         menu.add(remove);
+        menu.add(reset);
         setJMenuBar(menu);
     }
 
