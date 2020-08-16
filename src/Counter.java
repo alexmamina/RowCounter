@@ -3,17 +3,19 @@ import java.awt.*;
 
 public class Counter extends JFrame {
 
-    //TODO colours
+    //TODO limits/loopedcharts like sock
+    //TODO dont add chart if cancel pressed
 
 
     private int counter = 1;
 
     private Counter() {
         setTitle("Row Counter");
-        setSize(630, 500);
+        setSize(1000, 500);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setLayout(new GridLayout(10,6));
         addMenu();
+        getContentPane().setBackground(new Color(174,237,255));
         Chart gen = new Chart("General counter");
         for (int i = 0; i < 6; i++) {
             this.add(gen.chart[i]);
@@ -53,7 +55,6 @@ public class Counter extends JFrame {
         JMenuBar menu = new JMenuBar();
         JButton newchart = new JButton("Add");
         JButton remove = new JButton("Delete chart");
-
         newchart.addActionListener(e -> {
             for (int i = 1; i < 6; i++) {
                 if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(JOptionPane.showInputDialog(

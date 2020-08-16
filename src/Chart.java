@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -9,14 +11,24 @@ public class Chart {
     public JCheckBox checkremove;
     public static ArrayList<JComponent[]> charts = new ArrayList<>();
     public static ArrayList<JComponent[]> links = new ArrayList<>();
+    private Border b = BorderFactory.createMatteBorder(1,1,1,1,new Color(174,237,255));
+    private Font f = new Font("Arial Rounded MT Bold", Font.PLAIN, 20);
 
     public Chart(String name) {
         chart = new JComponent[6];
         JLabel num = new JLabel("1");
+        num.setFont(f);
+        num.setForeground(new Color(26,0,255));
         JButton inc = new JButton("+");
+        inc.setBorder(b);
+        inc.setOpaque(true);
+        inc.setBackground(new Color(249,191,255));
         JButton dec = new JButton("-");
+        dec.setBorder(b);
+        dec.setOpaque(true);
+        dec.setBackground(new Color(201,191,255));
         JToggleButton link = new JToggleButton("Link to general");
-
+        link.setBorder(b);
         if (name.equals("General counter")) {
             inc.addActionListener(megaincrease);
             dec.addActionListener(megadecrease);
@@ -29,10 +41,18 @@ public class Chart {
         }
         JLabel text;
         text = new JLabel(name);
-
+        text.setFont(f);
+        link.setOpaque(true);
+        link.setBackground(new Color(174,237,255));
         link.addActionListener(e -> {
-            if (link.isSelected()) links.add(chart);
-            else links.remove(chart);
+            if (link.isSelected()) {
+                link.setBackground(new Color(90,113,255));
+                links.add(chart);
+            }
+            else {
+                link.setBackground(new Color(174,237,255));
+                links.remove(chart);
+            }
         });
         checkremove = new JCheckBox();
         checkremove.setSelected(false);
