@@ -4,7 +4,7 @@ import java.awt.*;
 public class Counter extends JFrame {
 
     //TODO limits/loopedcharts like sock
-    //TODO dont add chart if cancel pressed
+
 
 
     private int counter = 1;
@@ -56,14 +56,17 @@ public class Counter extends JFrame {
         JButton newchart = new JButton("Add");
         JButton remove = new JButton("Delete chart");
         newchart.addActionListener(e -> {
-            for (int i = 1; i < 6; i++) {
-                if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(JOptionPane.showInputDialog(
-                        "Enter chart name:"));
-                Chart.charts.get(counter)[i].setVisible(true);
+            String name = JOptionPane.showInputDialog(
+                    "Enter chart name:");
+            if (name != null && !name.equals("")) {
+                for (int i = 1; i < 6; i++) {
+                    if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(name);
+                    Chart.charts.get(counter)[i].setVisible(true);
+                }
+                counter++;
+                revalidate();
+                repaint();
             }
-            counter++;
-            revalidate();
-            repaint();
         });
 
         remove.addActionListener(e -> {
