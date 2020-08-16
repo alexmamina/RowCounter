@@ -15,8 +15,10 @@ public class Chart {
     private Font f = new Font("Arial Rounded MT Bold", Font.PLAIN, 20);
 
     public Chart(String name) {
-        chart = new JComponent[6];
-        JLabel num = new JLabel("1");
+        chart = new JComponent[8];
+        JLabel resetafterrow = new JLabel("");
+        JLabel startfromrow = new JLabel("1");
+        JLabel num = new JLabel(startfromrow.getText());
         num.setFont(f);
         num.setForeground(new Color(26,0,255));
         JButton inc = new JButton("+");
@@ -36,7 +38,14 @@ public class Chart {
             link.setEnabled(false);
             links.add(chart);
         } else {
-            inc.addActionListener(e -> num.setText(String.valueOf(Integer.parseInt(num.getText()) + 1)));
+            inc.addActionListener(e -> {
+                int nextrow = Integer.parseInt(num.getText()) + 1;
+            if (nextrow <= Integer.parseInt(resetafterrow.getText()))
+                num.setText(String.valueOf(nextrow));
+            else {
+                num.setText(startfromrow.getText());
+            }
+            });
             dec.addActionListener(e -> num.setText(String.valueOf(Integer.parseInt(num.getText()) - 1)));
         }
         JLabel text;
@@ -63,7 +72,8 @@ public class Chart {
         chart[3] = inc;
         chart[4] = dec;
         chart[5] = link;
-
+        chart[6] = startfromrow;
+        chart[7] = resetafterrow;
 
         charts.add(chart);
     }

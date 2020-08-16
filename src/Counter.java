@@ -3,8 +3,8 @@ import java.awt.*;
 
 public class Counter extends JFrame {
 
-    //TODO limits/loopedcharts like sock
-
+    //TODO number of repeats
+    //TODO add reset counter
 
 
     private int counter = 1;
@@ -55,14 +55,21 @@ public class Counter extends JFrame {
         JMenuBar menu = new JMenuBar();
         JButton newchart = new JButton("Add");
         JButton remove = new JButton("Delete chart");
+
         newchart.addActionListener(e -> {
             String name = JOptionPane.showInputDialog(
                     "Enter chart name:");
+            String resetafter = JOptionPane.showInputDialog("Reset loop after row " +
+                    "number: (if not reset, enter 10000");
+            String startfrom = JOptionPane.showInputDialog("Start from row");
             if (name != null && !name.equals("")) {
                 for (int i = 1; i < 6; i++) {
                     if (i == 1) ((JLabel) Chart.charts.get(counter)[i]).setText(name);
                     Chart.charts.get(counter)[i].setVisible(true);
                 }
+                ((JLabel) Chart.charts.get(counter)[6]).setText(startfrom);
+                ((JLabel) Chart.charts.get(counter)[2]).setText(startfrom);
+                ((JLabel) Chart.charts.get(counter)[7]).setText(resetafter);
                 counter++;
                 revalidate();
                 repaint();
