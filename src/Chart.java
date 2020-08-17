@@ -10,15 +10,20 @@ public class Chart {
     public JComponent[] chart;
     public String name;
     public JCheckBox checkremove;
+    public JLabel repeats;
+    public JLabel resetafterrow;
+    public JLabel startfromrow;
     public static ArrayList<JComponent[]> charts = new ArrayList<>();
     public static ArrayList<JComponent[]> links = new ArrayList<>();
     private Border b = BorderFactory.createMatteBorder(1,1,1,1,new Color(174,237,255));
-    private Font f = new Font("Arial Rounded MT Bold", Font.PLAIN, 20);
+    private Font f = new Font("Arial Rounded MT Bold", Font.PLAIN, 15);
 
     public Chart(String name) {
-        chart = new JComponent[8];
-        JLabel resetafterrow = new JLabel("");
-        JLabel startfromrow = new JLabel("1");
+        chart = new JComponent[9];
+        resetafterrow = new JLabel("1000000");
+        startfromrow = new JLabel("1");
+        repeats = new JLabel("0");
+        repeats.setFont(f);
         JLabel num = new JLabel(startfromrow.getText());
         num.setFont(f);
         num.setForeground(new Color(26,0,255));
@@ -65,6 +70,7 @@ public class Chart {
                 num.setText(String.valueOf(nextrow));
             else {
                 num.setText(startfromrow.getText());
+                repeats.setText(String.valueOf(Integer.parseInt(repeats.getText()) + 1));
             }
             });
             dec.addActionListener(e -> num.setText(String.valueOf(Integer.parseInt(num.getText()) - 1)));
@@ -95,13 +101,20 @@ public class Chart {
         chart[5] = link;
         chart[6] = startfromrow;
         chart[7] = resetafterrow;
+        chart[8] = repeats;
 
         charts.add(chart);
     }
 
     private ActionListener megaincrease = e -> {
         for (JComponent[] c : links) {
-            ((JLabel) c[2]).setText(String.valueOf(Integer.parseInt(((JLabel) c[2]).getText()) + 1));
+            int nextrow = Integer.parseInt(((JLabel) c[2]).getText()) + 1;
+            if (nextrow <= Integer.parseInt(((JLabel) c[7]).getText()))
+                ((JLabel) c[2]).setText(String.valueOf(nextrow));
+            else {
+                ((JLabel) c[2]).setText(((JLabel) c[6]).getText());
+                ((JLabel) c[8]).setText(String.valueOf(Integer.parseInt(((JLabel) c[8]).getText()) + 1));
+            }
         }
     };
 
